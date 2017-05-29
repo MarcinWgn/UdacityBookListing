@@ -10,18 +10,19 @@ import java.util.ArrayList;
  * Created by Marcin on 28.05.2017.
  */
 
-public class QueryLoader extends AsyncTaskLoader<ArrayList<Book>> {
+public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
-    public static final String TAG = QueryLoader.class.getName();
+    public static final String TAG = BookLoader.class.getName();
 
     private String stringUrl;
 
     @Override
     protected void onStartLoading() {
-        forceLoad();
+
+//        forceLoad();
     }
 
-    public QueryLoader(Context context, String stringUrl ) {
+    public BookLoader(Context context, String stringUrl ) {
         super(context);
         this.stringUrl = stringUrl;
     }
@@ -30,11 +31,12 @@ public class QueryLoader extends AsyncTaskLoader<ArrayList<Book>> {
     public ArrayList<Book> loadInBackground() {
 
         if(stringUrl == null) return null;
-        // TODO: 28.05.2017 zadania w tle
+
+
+        ArrayList<Book> books = QueryUtils.extractBookData(stringUrl);
+
         Log.d(TAG, "loadInBackground");
 
-        ArrayList<Book> books  = new ArrayList<>();
-        books.add(new Book("Pan Tadeusz","Na litwie"));
 
         return books;
     }

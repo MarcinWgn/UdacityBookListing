@@ -12,15 +12,15 @@ public class Book {
     private String subtitle;
     private ArrayList<String> authors;
 
+    public Book(String title, String subtitle) {
+        this.title = title;
+        this.subtitle = subtitle;
+    }
+
     public Book(String title, String subtitle, ArrayList<String> authors) {
         this.title = title;
         this.subtitle = subtitle;
         this.authors = authors;
-    }
-
-    public Book(String title, String subtitle) {
-        this.title = title;
-        this.subtitle = subtitle;
     }
 
     public String getTitle() {
@@ -31,7 +31,17 @@ public class Book {
         return subtitle;
     }
 
-    public ArrayList<String> getAuthors() {
-        return authors;
+    public String getAuthors() {
+
+        String returnAutors = "";
+
+        for (int i = 0; i < authors.size() ; i++) {
+            if (i == 0){
+                returnAutors = authors.get(i);
+            }else {
+                returnAutors += ", "+authors.get(i);
+            }
+        }
+        return returnAutors;
     }
 }
