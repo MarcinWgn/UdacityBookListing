@@ -30,7 +30,7 @@ public class QueryUtils {
     public QueryUtils() {
     }
 
-    public static ArrayList<Book> extractBookData(String stringUrl){
+    public static ArrayList<Book> extractBookData(String stringUrl) {
 
         URL url = createURL(stringUrl);
         String jResponse = null;
@@ -48,48 +48,43 @@ public class QueryUtils {
 
     private static ArrayList<Book> extractFromJason(String jResponse) {
 
-        if(TextUtils.isEmpty(jResponse)) return null;
+        if (TextUtils.isEmpty(jResponse)) return null;
 
         ArrayList<Book> books = new ArrayList<>();
 
 
         JSONObject jsonObject = null;
 
-        String title="";
-        String subtitle="";
+        String title = "";
+        String subtitle = "";
 
         try {
             jsonObject = new JSONObject(jResponse);
             JSONArray jsonArray = jsonObject.getJSONArray("items");
 
-
-
-            for (int i = 0 ; i<jsonArray.length(); i++){
-
-
-
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
                 JSONObject objectVolumeInfo = object.getJSONObject("volumeInfo");
 
                 title = objectVolumeInfo.getString("title");
 
-                if(objectVolumeInfo.has("subtitle")){
+                if (objectVolumeInfo.has("subtitle")) {
                     subtitle = objectVolumeInfo.getString("subtitle");
                 }
 
                 JSONArray autorArray = objectVolumeInfo.getJSONArray("authors");
                 ArrayList<String> autors = new ArrayList<>();
 
-                for (int j=0 ;j<autorArray.length(); j++){
-                autors.add(autorArray.getString(j));
+                for (int j = 0; j < autorArray.length(); j++) {
+                    autors.add(autorArray.getString(j));
                 }
-                books.add(new Book(title,subtitle,autors));
+                books.add(new Book(title, subtitle, autors));
 
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e(TAG,"Error Parsing"+e);
+            Log.e(TAG, "Error Parsing" + e);
         }
 
 
@@ -111,7 +106,7 @@ public class QueryUtils {
 
         String response = "";
 
-        if(url == null) return response;
+        if (url == null) return response;
 
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
@@ -123,19 +118,19 @@ public class QueryUtils {
             urlConnection.setRequestMethod(GET);
             urlConnection.connect();
 
-            if(urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 response = readStringFromStream(inputStream);
 
-            }else Log.e(TAG, "incorrect response code: " + urlConnection.getResponseCode());
+            } else Log.e(TAG, "incorrect response code: " + urlConnection.getResponseCode());
 
 
         } catch (IOException e) {
-            Log.e(TAG,"Problem JSON data: "+e);
+            Log.e(TAG, "Problem JSON data: " + e);
             e.printStackTrace();
         } finally {
-            if(urlConnection != null) urlConnection.disconnect();
-            if(inputStream != null) inputStream.close();
+            if (urlConnection != null) urlConnection.disconnect();
+            if (inputStream != null) inputStream.close();
         }
 
         return response;
@@ -145,13 +140,13 @@ public class QueryUtils {
 
         StringBuilder result = new StringBuilder();
 
-        if(inputStream != null) {
+        if (inputStream != null) {
 
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String stringLine = bufferedReader.readLine();
 
-            while (stringLine != null){
+            while (stringLine != null) {
                 result.append(stringLine);
                 stringLine = bufferedReader.readLine();
             }

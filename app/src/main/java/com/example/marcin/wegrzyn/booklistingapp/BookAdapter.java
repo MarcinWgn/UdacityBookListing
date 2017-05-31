@@ -26,21 +26,26 @@ public class BookAdapter extends ArrayAdapter<Book> {
 
         View listView = convertView;
 
-        if(listView == null){
+        if (listView == null) {
 
-            listView = LayoutInflater.from(getContext()).inflate(R.layout.book_item,parent,false);
+            listView = LayoutInflater.from(getContext()).inflate(R.layout.book_item, parent, false);
         }
 
         Book book = getItem(position);
 
         TextView title = (TextView) listView.findViewById(R.id.titleTv);
         TextView subtitle = (TextView) listView.findViewById(R.id.subtitleTv);
-        TextView author = (TextView) listView.findViewById(R.id.authotTv);
+        TextView author = (TextView) listView.findViewById(R.id.authorTv);
 
         title.setText(book.getTitle());
-        subtitle.setText(book.getSubtitle());
-        author.setText(book.getAuthors());
 
+        if (book.hasSubtitle()) {
+            subtitle.setText(book.getSubtitle());
+            subtitle.setVisibility(View.VISIBLE);
+        } else {
+            subtitle.setVisibility(View.GONE);
+        }
+        author.setText(book.getAuthors());
 
         return listView;
     }

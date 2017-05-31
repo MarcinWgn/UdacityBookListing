@@ -2,7 +2,6 @@ package com.example.marcin.wegrzyn.booklistingapp;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -12,17 +11,9 @@ import java.util.ArrayList;
 
 public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
-    public static final String TAG = BookLoader.class.getName();
-
     private String stringUrl;
 
-    @Override
-    protected void onStartLoading() {
-
-//        forceLoad();
-    }
-
-    public BookLoader(Context context, String stringUrl ) {
+    public BookLoader(Context context, String stringUrl) {
         super(context);
         this.stringUrl = stringUrl;
     }
@@ -30,11 +21,9 @@ public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
     @Override
     public ArrayList<Book> loadInBackground() {
 
-        if(stringUrl == null) return null;
+        if (stringUrl == null) return null;
 
         ArrayList<Book> books = QueryUtils.extractBookData(stringUrl);
-
-        Log.d(TAG, "loadInBackground");
 
         return books;
     }

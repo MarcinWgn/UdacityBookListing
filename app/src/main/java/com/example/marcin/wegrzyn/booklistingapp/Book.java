@@ -35,13 +35,17 @@ public class Book {
 
         String returnAutors = "";
 
-        for (int i = 0; i < authors.size() ; i++) {
-            if (i == 0){
+        for (int i = 0; i < authors.size(); i++) {
+            if (i == 0) {
                 returnAutors = authors.get(i);
-            }else {
-                returnAutors += ", "+authors.get(i);
+            } else {
+                returnAutors += ", " + authors.get(i);
             }
         }
         return returnAutors;
+    }
+
+    public boolean hasSubtitle() {
+        return !subtitle.isEmpty();
     }
 }
