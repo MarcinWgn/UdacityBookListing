@@ -32,11 +32,9 @@ public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
         if(stringUrl == null) return null;
 
-
         ArrayList<Book> books = QueryUtils.extractBookData(stringUrl);
 
         Log.d(TAG, "loadInBackground");
-
 
         return books;
     }

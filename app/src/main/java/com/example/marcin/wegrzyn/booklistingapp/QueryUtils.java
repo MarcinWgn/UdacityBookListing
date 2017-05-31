@@ -62,7 +62,11 @@ public class QueryUtils {
             jsonObject = new JSONObject(jResponse);
             JSONArray jsonArray = jsonObject.getJSONArray("items");
 
+
+
             for (int i = 0 ; i<jsonArray.length(); i++){
+
+
 
                 JSONObject object = jsonArray.getJSONObject(i);
                 JSONObject objectVolumeInfo = object.getJSONObject("volumeInfo");
@@ -80,12 +84,14 @@ public class QueryUtils {
                 autors.add(autorArray.getString(j));
                 }
                 books.add(new Book(title,subtitle,autors));
+
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(TAG,"Error Parsing"+e);
         }
+
 
         return books;
     }

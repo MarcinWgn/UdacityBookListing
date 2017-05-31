@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,13 +19,15 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
 
     public static final int QueryLoaderID = 3;
     public static final String URL = "https://www.googleapis.com/books/v1/volumes?q=";
-    public static final String EndURL = "&maxResults=1";
+    public static final String EndURL = "&maxResults=10";
     public static final String TAG = MainActivity.class.getName();
 
-    private TextView textView;
+
     private EditText editText;
     private Button button;
     private String searchString;
+    private BookAdapter bookAdapter;
+
 
 
 
@@ -34,7 +36,18 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findView();
+        Log.d(TAG,"OnCreate");
+
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        editText = (EditText) findViewById(R.id.editText);
+        button = (Button) findViewById(R.id.button);
+
+
+        bookAdapter = new BookAdapter(this,new ArrayList<Book>());
+        listView.setAdapter(bookAdapter);
+
+        getLoaderManager().initLoader(QueryLoaderID,null,MainActivity.this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,13 +64,6 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
             }
         });
 
-    }
-
-    private void findView() {
-
-        textView = (TextView) findViewById(R.id.TextView1);
-        editText = (EditText) findViewById(R.id.editText);
-        button = (Button) findViewById(R.id.button);
     }
 
     private boolean isNetworkConnected(){
@@ -77,16 +83,22 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
     @Override
     public void onLoadFinished(Loader<ArrayList<Book>> loader, ArrayList<Book> data) {
 
-        textView.setText(data.get(0).getTitle());
-        textView.append("\n"+data.get(0).getSubtitle());
-        textView.append("\n"+data.get(0).getAuthors());
+        Log.d(TAG,String.valueOf(data.size()));
 
-        Log.d(TAG,data.get(0).getTitle());
+        bookAdapter.clear();
+
+        if(data != null && !data.isEmpty() ){
+
+            bookAdapter.addAll(data);
+            Log.d(TAG,data.get(0).getTitle());
+
+        }
 
     }
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Book>> loader) {
 
+        bookAdapter.clear();
     }
 }
