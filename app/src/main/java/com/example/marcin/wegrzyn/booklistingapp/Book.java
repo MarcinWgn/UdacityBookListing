@@ -3,10 +3,10 @@ package com.example.marcin.wegrzyn.booklistingapp;
 import java.util.ArrayList;
 
 /**
- * Created by Marcin on 28.05.2017.
+ * Created by Marcin on 28.05.2017 :)
  */
 
-public class Book {
+class Book {
 
     private String title;
     private String subtitle;
@@ -17,21 +17,21 @@ public class Book {
         this.subtitle = subtitle;
     }
 
-    public Book(String title, String subtitle, ArrayList<String> authors) {
+    Book(String title, String subtitle, ArrayList<String> authors) {
         this.title = title;
         this.subtitle = subtitle;
         this.authors = authors;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public String getSubtitle() {
+    String getSubtitle() {
         return subtitle;
     }
 
-    public String getAuthors() {
+    String getAuthors() {
 
         String returnAutors = "";
 
@@ -45,7 +45,7 @@ public class Book {
         return returnAutors;
     }
 
-    public boolean hasSubtitle() {
+    boolean hasSubtitle() {
         return !subtitle.isEmpty();
     }
 }

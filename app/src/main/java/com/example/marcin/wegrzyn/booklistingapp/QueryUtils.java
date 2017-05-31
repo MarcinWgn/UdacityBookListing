@@ -18,19 +18,19 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 /**
- * Created by Marcin on 29.05.2017.
+ * Created by Marcin on 29.05.2017 :)
  */
 
-public class QueryUtils {
+class QueryUtils {
 
-    public static final String TAG = QueryUtils.class.getName();
-    public static final String GET = "GET";
+    private static final String TAG = QueryUtils.class.getName();
+    private static final String GET = "GET";
 
 
     public QueryUtils() {
     }
 
-    public static ArrayList<Book> extractBookData(String stringUrl) {
+    static ArrayList<Book> extractBookData(String stringUrl) {
 
         URL url = createURL(stringUrl);
         String jResponse = null;
@@ -41,9 +41,7 @@ public class QueryUtils {
             e.printStackTrace();
         }
 
-        ArrayList<Book> bookList = extractFromJason(jResponse);
-
-        return bookList;
+        return extractFromJason(jResponse);
     }
 
     private static ArrayList<Book> extractFromJason(String jResponse) {
@@ -55,7 +53,7 @@ public class QueryUtils {
 
         JSONObject jsonObject = null;
 
-        String title = "";
+        String title;
         String subtitle = "";
 
         try {
@@ -122,7 +120,7 @@ public class QueryUtils {
                 inputStream = urlConnection.getInputStream();
                 response = readStringFromStream(inputStream);
 
-            } else Log.e(TAG, "incorrect response code: " + urlConnection.getResponseCode());
+            } else Log.e(TAG, "Incorrect response code: " + urlConnection.getResponseCode());
 
 
         } catch (IOException e) {

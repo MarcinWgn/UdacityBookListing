@@ -12,11 +12,11 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by Marcin on 30.05.2017.
+ * Created by Marcin on 30.05.2017 :)
  */
 
-public class BookAdapter extends ArrayAdapter<Book> {
-    public BookAdapter(@NonNull Context context, @NonNull List<Book> objects) {
+class BookAdapter extends ArrayAdapter<Book> {
+    BookAdapter(@NonNull Context context, @NonNull List<Book> objects) {
         super(context, 0, objects);
     }
 

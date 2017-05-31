@@ -6,14 +6,14 @@ import android.content.Context;
 import java.util.ArrayList;
 
 /**
- * Created by Marcin on 28.05.2017.
+ * Created by Marcin on 28.05.2017 :)
  */
 
-public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
+class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
     private String stringUrl;
 
-    public BookLoader(Context context, String stringUrl) {
+    BookLoader(Context context, String stringUrl) {
         super(context);
         this.stringUrl = stringUrl;
     }
@@ -23,8 +23,6 @@ public class BookLoader extends AsyncTaskLoader<ArrayList<Book>> {
 
         if (stringUrl == null) return null;
 
-        ArrayList<Book> books = QueryUtils.extractBookData(stringUrl);
-
-        return books;
+        return QueryUtils.extractBookData(stringUrl);
     }
 }

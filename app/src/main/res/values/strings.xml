@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">BookListingApp</string>
     <string name="author">author:</string>
-    <string name="book">book</string>
+    <string name="book">book search</string>
     <string name="no_internet">No internet connection</string>
     <string name="null_string" />
+    <string name="enter_word">Enter the word</string>
+    <string name="no_data">No data --> Enter the word to search in text box</string>
 </resources>

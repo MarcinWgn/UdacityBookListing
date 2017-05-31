@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
     public static final String EndURL = "&maxResults=10";
 
     private EditText editText;
-    private Button button;
     private String searchString;
     private BookAdapter bookAdapter;
     private ProgressBar progressBar;
@@ -39,11 +38,11 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
 
         listView = (ListView) findViewById(R.id.listView);
         editText = (EditText) findViewById(R.id.editText);
-        button = (Button) findViewById(R.id.button);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         emptyView = (TextView) findViewById(R.id.emptyView);
 
-
+        emptyView.setText(R.string.no_data);
         progressBar.setVisibility(View.GONE);
         bookAdapter = new BookAdapter(this, new ArrayList<Book>());
         listView.setAdapter(bookAdapter);
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
         }
 
 
+        Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,16 +69,13 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
                         getLoaderManager().restartLoader(QueryLoaderID, null, MainActivity.this).forceLoad();
                         progressBar.setVisibility(View.VISIBLE);
                     } else {
-                        Toast.makeText(MainActivity.this, "Enter the word", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.enter_word, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     noConnection();
                 }
-
-
             }
         });
-
     }
 
     private void noConnection() {
@@ -99,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
         return networkInfo != null && networkInfo.isConnected();
     }
 
-
     @Override
     public Loader<ArrayList<Book>> onCreateLoader(int id, Bundle args) {
         return new BookLoader(this, URL + searchString + EndURL);
@@ -109,11 +105,12 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
     @Override
     public void onLoadFinished(Loader<ArrayList<Book>> loader, ArrayList<Book> data) {
 
+        emptyView.setText(R.string.null_string);
         bookAdapter.clear();
 
         if (data != null && !data.isEmpty()) {
             bookAdapter.addAll(data);
-        }
+        } else emptyView.setText(R.string.no_data);
         progressBar.setVisibility(View.GONE);
     }
 
