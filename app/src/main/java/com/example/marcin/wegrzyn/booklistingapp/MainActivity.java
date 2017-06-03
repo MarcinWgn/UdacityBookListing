@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,8 +21,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements android.app.LoaderManager.LoaderCallbacks<ArrayList<Book>> {
 
     public static final int QueryLoaderID = 3;
-    public static final String URL = "https://www.googleapis.com/books/v1/volumes?q=";
-    public static final String EndURL = "&maxResults=10";
+    public static final String URL = "https://www.googleapis.com/books/v1/volumes";
 
     private EditText editText;
     private String searchString;
@@ -98,7 +98,14 @@ public class MainActivity extends AppCompatActivity implements android.app.Loade
 
     @Override
     public Loader<ArrayList<Book>> onCreateLoader(int id, Bundle args) {
-        return new BookLoader(this, URL + searchString + EndURL);
+
+        Uri baseUri = Uri.parse(URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("q",searchString);
+        uriBuilder.appendQueryParameter("maxResults","10");
+
+        return new BookLoader(this, uriBuilder.toString());
 
     }
 
